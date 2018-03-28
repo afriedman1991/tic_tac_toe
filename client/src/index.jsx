@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import ReactDOM, { render } from 'react-dom';
 
-class Board extends Component {
-    constructor() {
-        super();
-    }
-
+class Game extends Component {
     render() {
         return (
-            <div>
-                <h1>Hello world</h1>
+            <div className="game">
+              <div className="game-board">
+                <Board />
+              </div>
+              <div className="game-info">
+                <div>{/* status */}</div>
+                <ol>{/* TODO */}</ol>
+              </div>
             </div>
-        )
+        );
     }
 }
 
