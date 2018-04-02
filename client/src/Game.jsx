@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM, { render } from 'react-dom';
+import Board from './Board.jsx';
 
 class Game extends Component {
     render() {
@@ -17,4 +18,4 @@ class Game extends Component {
     }
 }
 
-render(<Board />, document.getElementById('app'));
+render(<Game />, document.getElementById('app'));
