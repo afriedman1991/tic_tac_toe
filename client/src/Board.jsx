@@ -4,10 +4,7 @@ import Square from './Square.jsx';
 class Board extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            squares: Array(9).fill(null),
-            xIsNext: true
-        }
+        this.state = {}
         this.handleClick = this.handleClick.bind(this);
         this.renderSquare = this.renderSquare.bind(this);
         this.calculateWinner = this.calculateWinner.bind(this);
@@ -38,8 +35,8 @@ class Board extends Component {
         const squares = this.state.squares.slice();
         squares[i] = this.state.xIsNext ? 'X' : 'O';
         this.setState({
+            xIsNext: !this.state.xIsNext,
             squares: squares,
-            xIsNext: !this.state.xIsNext
         });
     }
 
