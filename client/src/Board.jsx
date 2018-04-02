@@ -2,14 +2,6 @@ import React, { Component } from 'react';
 import Square from './Square.jsx';
 
 class Board extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {}
-        this.handleClick = this.handleClick.bind(this);
-        this.renderSquare = this.renderSquare.bind(this);
-        this.calculateWinner = this.calculateWinner.bind(this);
-    }
-
     calculateWinner(squares) {
         const lines = [
             [0, 1, 2],
@@ -31,7 +23,6 @@ class Board extends Component {
     }
 
     handleClick(i) {
-        console.log('HELLO WORLD!!!!!!!!!!');
         const squares = this.state.squares.slice();
         squares[i] = this.state.xIsNext ? 'X' : 'O';
         this.setState({
@@ -43,38 +34,29 @@ class Board extends Component {
     renderSquare(i) {
         return (
             <Square 
-            value={this.state.squares[i]}
-            onClick={() => this.handleClick(i)}
+            value={this.props.squares[i]}
+            onClick={() => this.props.handleClick(i)}
         />
       );
     }
 
     render() {
-        const winner = this.calculateWinner(this.state.squares);
-        let status;
-        if (winner) {
-            status = 'Winner: ' + winner;
-        } else {
-            status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
-        }
-        
         return (
             <div>
-                <div className="status">{status}</div>
                 <div className="board-row">
-                {this.renderSquare(0)}
-                {this.renderSquare(1)}
-                {this.renderSquare(2)}
+                  {this.renderSquare(0)}
+                  {this.renderSquare(1)}
+                  {this.renderSquare(2)}
                 </div>
                 <div className="board-row">
-                {this.renderSquare(3)}
-                {this.renderSquare(4)}
-                {this.renderSquare(5)}
+                  {this.renderSquare(3)}
+                  {this.renderSquare(4)}
+                  {this.renderSquare(5)}
                 </div>
                 <div className="board-row">
-                {this.renderSquare(6)}
-                {this.renderSquare(7)}
-                {this.renderSquare(8)}
+                  {this.renderSquare(6)}
+                  {this.renderSquare(7)}
+                  {this.renderSquare(8)}
                 </div>
             </div>
         );
