@@ -10,7 +10,9 @@ class Game extends Component {
         squares: Array(9).fill(null)
       }],
       xIsNext: true,
-      foundWinner: false
+      foundWinner: false,
+      xScore: 0,
+      oScore: 0
     }
     this.handleClick = this.handleClick.bind(this);
     this.calculateWinner = this.calculateWinner.bind(this);
@@ -56,14 +58,30 @@ class Game extends Component {
     });
   }
 
-  resetGame() {
-    this.setState({
-      history: [{
-        squares: Array(9).fill(null)
-      }],
-      xIsNext: true,
-      foundWinner: false
-    })
+  resetGame(currWinner) {
+    console.log(currWinner);
+    if (currWinner === 'X') {
+      this.setState({
+        history: [{
+          squares: Array(9).fill(null)
+        }],
+        xIsNext: true,
+        foundWinner: false,
+        xScore: this.state.xScore += 1,
+        oScore: this.state.oScore
+      });
+    } else if (currWinner === 'O') {
+      this.setState({
+        history: [{
+          squares: Array(9).fill(null)
+        }],
+        xIsNext: true,
+        foundWinner: false,
+        xScore: this.state.xScore,
+        oScore: this.state.oScore += 1
+      });
+    }
+    return;
   }
 
     render() {
@@ -91,9 +109,11 @@ class Game extends Component {
               </div>
               <div className="game-info">
                 <div>{status}</div>
+                <div>X Score: {this.state.xScore}</div>
+                <div>O Score: {this.state.oScore}</div>
               </div>
               {
-                foundWinner ? <button id="reset-game-button" onClick={this.resetGame}>Play Again?</button> : null
+                foundWinner ? <button id="reset-game-button" onClick={() => this.resetGame(winner)}>Play Again?</button> : null
               }
             </div>
         );
