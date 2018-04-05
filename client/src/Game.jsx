@@ -9,10 +9,12 @@ class Game extends Component {
       history: [{
         squares: Array(9).fill(null)
       }],
-      xIsNext: true
+      xIsNext: true,
+      foundWinner: false
     }
     this.handleClick = this.handleClick.bind(this);
     this.calculateWinner = this.calculateWinner.bind(this);
+    this.resetGame = this.resetGame.bind(this);
   }
 
   calculateWinner(squares) {
@@ -40,6 +42,9 @@ class Game extends Component {
     const current = history[history.length - 1];
     const squares = current.squares.slice();
     if (this.calculateWinner(squares) || squares[i]) {
+      this.setState({
+        foundWinner: true
+      });
       return;
     }
     squares[i] = this.state.xIsNext ? 'X' : 'O';
@@ -51,21 +56,33 @@ class Game extends Component {
     });
   }
 
+  resetGame() {
+    this.setState({
+      history: [{
+        squares: Array(9).fill(null)
+      }],
+      xIsNext: true,
+      foundWinner: false
+    })
+  }
+
     render() {
       const history = this.state.history;
       const current = history[history.length - 1];
       const winner = this.calculateWinner(current.squares);
-
+      
+      let foundWinner = false;
       let status;
       if (winner) {
         status = 'Winner: ' + winner;
+        foundWinner = true;
       } else {
         status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
       }
 
         return (
-            <div className="game">
-              <div className="game-board">
+            <div className="game" id="outer">
+              <div id="special" className="game-board">
                 <Board
                   squares={current.squares}
                   onClick={(i) => this.handleClick(i)}
@@ -74,8 +91,10 @@ class Game extends Component {
               </div>
               <div className="game-info">
                 <div>{status}</div>
-                <ol>{/* TODO */}</ol>
               </div>
+              {
+                foundWinner ? <button id="reset-game-button" onClick={this.resetGame}>Play Again?</button> : null
+              }
             </div>
         );
     }
