@@ -34,6 +34,8 @@ class Game extends Component {
         const [a, b, c] = lines[i];
         if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
             return squares[a];
+        } else if (!squares.includes(null)) {
+          return "Draw";
         }
     }
     return null;
@@ -59,7 +61,6 @@ class Game extends Component {
   }
 
   resetGame(currWinner) {
-    console.log(currWinner);
     if (currWinner === 'X') {
       this.setState({
         history: [{
@@ -80,6 +81,16 @@ class Game extends Component {
         xScore: this.state.xScore,
         oScore: this.state.oScore += 1
       });
+    } else {
+      this.setState({
+        history: [{
+          squares: Array(9).fill(null)
+        }],
+        xIsNext: true,
+        foundWinner: false,
+        xScore: this.state.xScore,
+        oScore: this.state.oScore
+      });
     }
     return;
   }
@@ -90,8 +101,12 @@ class Game extends Component {
       const winner = this.calculateWinner(current.squares);
       
       let foundWinner = false;
+      let draw = false;
       let status;
-      if (winner) {
+      if (winner === 'Draw') {
+        status = 'Draw';
+        draw = true;
+      } else if (winner) {
         status = 'Winner: ' + winner;
         foundWinner = true;
       } else {
@@ -113,7 +128,7 @@ class Game extends Component {
                 <div>O Score: {this.state.oScore}</div>
               </div>
               {
-                foundWinner ? <button id="reset-game-button" onClick={() => this.resetGame(winner)}>Play Again?</button> : null
+                foundWinner || draw ? <button id="reset-game-button" onClick={() => this.resetGame(winner)}>Play Again?</button> : null
               }
             </div>
         );
