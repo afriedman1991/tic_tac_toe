@@ -49,3 +49,19 @@ body {
 .game-info {
     margin-left: 20px;
 }
+
+#reset-game-button {
+    position: relative;
+    height: 40px;
+    width: 120px;
+    margin-top: 189px;
+    top: 50px;
+    right: 87px;
+}
+
+#reset-score {
+    position: absolute;
+    height: 40px;
+    width: 120px;
+    top: -40px;
+}

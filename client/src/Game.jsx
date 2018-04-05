@@ -17,6 +17,7 @@ class Game extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.calculateWinner = this.calculateWinner.bind(this);
     this.resetGame = this.resetGame.bind(this);
+    this.resetScores = this.resetScores.bind(this);
   }
 
   calculateWinner(squares) {
@@ -95,6 +96,16 @@ class Game extends Component {
     return;
   }
 
+  resetScores() {
+    this.setState({
+      history: this.state.history,
+      xIsNext: this.state.xIsNext,
+      foundWinner: this.state.foundWinner,
+      xScore: 0,
+      oScore: 0
+    });
+  }
+
     render() {
       const history = this.state.history;
       const current = history[history.length - 1];
@@ -114,7 +125,8 @@ class Game extends Component {
       }
 
         return (
-            <div className="game" id="outer">
+          <div className="game" id="outer">
+          <button id="reset-score" onClick={this.resetScores}>Reset the Scores?</button>
               <div id="special" className="game-board">
                 <Board
                   squares={current.squares}
@@ -132,7 +144,7 @@ class Game extends Component {
               }
             </div>
         );
+      }
     }
-}
-
-render(<Game />, document.getElementById('app'));
+    
+    render(<Game />, document.getElementById('app'));
